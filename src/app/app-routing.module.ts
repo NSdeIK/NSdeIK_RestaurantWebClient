@@ -4,17 +4,20 @@ import { SzemelyListaComponent } from './components/szemely-lista/szemely-lista.
 import { BejelentkezesComponent } from "./components/login/bejelentkezes/bejelentkezes.component";
 import { KezdolapComponent } from "./components/kezdolap/kezdolap.component";
 import { AuthGuard } from "./auth/auth.guard";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpRequestInterceptor} from "./auth/http.interceptor";
 
 const routes: Routes = [
   {path: 'kezdolap', component: KezdolapComponent, canActivate: [AuthGuard]},
   {path: 'bejelentkezes', component: BejelentkezesComponent},
+  {path: 'szemelyek', component: SzemelyListaComponent},
   //{path: 'szemelyek', component: SzemelyListaComponent},
-  { path: '**', redirectTo: 'kezdolap' }
+  {path: '', redirectTo: 'kezdolap', pathMatch: 'full'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},AuthGuard]
 })
 export class AppRoutingModule { }

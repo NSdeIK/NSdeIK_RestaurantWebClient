@@ -1,9 +1,14 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-primary" *ngIf="bejelentkezve">
+  <nav class="navbar navbar-expand navbar-dark bg-primary">
     <div class="navbar-brand">{{title}}</div>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/kezdolap" class="nav-link" routerLink="kezdolap">Kezdőlap</a>
+        <a href="/kezdolap" class="nav-link" routerLink="kezdolap" *ngIf="bejelentkezve">Kezdőlap</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="bejelentkezve && role == 'TULAJDONOS'">
+      <li class="nav-item">
+        <a href="/szemelyek" class="nav-link" routerLink="szemelyek">Személyek</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="bejelentkezve">

@@ -10,11 +10,15 @@ export class AppComponent {
   title = 'XYZ - Étterem';
   bejelentkezve = false;
   felhasznalonev?: string;
+  role?: string | null;
 
   constructor(private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
     this.bejelentkezve = !!this.tokenStorageService.getToken();
+    if(this.bejelentkezve){
+      this.role = this.tokenStorageService.getRole();
+    }
   }
 
   kijelentkezes(): void {

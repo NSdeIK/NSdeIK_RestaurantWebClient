@@ -1,0 +1,20 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Neve</th>
+            <th scope="col">Poszt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let szemely of szemelyek; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ szemely.szemely_nev }}</td>
+            <td>{{ szemely.szemely_poszt }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -11,6 +11,7 @@ import { BejelentkezesComponent } from "./components/login/bejelentkezes/bejelen
 
 import { authInterceptorProviders } from './auth/auth.interceptor';
 import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
+import { SzemelyListaComponent } from "./components/szemely-lista/szemely-lista.component";
 //
 //import { SzemelyServiceService } from './service/szemely-service.service';
 //import { SzemelyListaComponent } from './szemely-lista/szemely-lista.component';
@@ -19,8 +20,8 @@ import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
   declarations: [
     AppComponent,
     BejelentkezesComponent,
-    KezdolapComponent
-    //SzemelyListaComponent
+    KezdolapComponent,
+    SzemelyListaComponent
   ],
   imports: [
     BrowserModule,

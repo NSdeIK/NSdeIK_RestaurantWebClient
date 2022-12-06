@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     //Ha van TOKEN, akkor bejelentkezve van
-    if (localStorage.getItem('TOKEN_KEY')) {
+    if (sessionStorage.getItem('auth-token')) {
       return true;
     }
     //Különben, ha nincs tokenje, akkor bejelentkezés lapra fog irányítani
