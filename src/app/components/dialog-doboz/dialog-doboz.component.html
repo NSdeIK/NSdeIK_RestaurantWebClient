@@ -1,0 +1,51 @@
+<h2 mat-dialog-title><strong>{{muveletTipus}}</strong></h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="muveletTipus != 'Törlés'; else elseTemplate">
+    <div *ngIf="muveletTipus === 'Hozzáadás'; else adatTemplate">
+      <mat-form-field appearance="fill">
+        <mat-label>Személy neve</mat-label>
+        <input placeholder="Név" matInput required [(ngModel)]="adatok.szemely.szemely_nev">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Személy poszt</mat-label>
+        <mat-select required [(ngModel)]="adatok.szemely.szemely_poszt">
+          <mat-option value="PINCER">Pincér</mat-option>
+          <mat-option value="SZAKACS">Szakács</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Fiók név</mat-label>
+        <input placeholder="Felhasználónév" matInput required [(ngModel)]="adatok.szemely.felhasznalonev">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Jelszó</mat-label>
+        <input matInput placeholder="Jelszó" type="password" required [(ngModel)]="adatok.szemely.jelszo">
+      </mat-form-field>
+    </div>
+    <ng-template #adatTemplate>
+      <mat-form-field appearance="fill">
+        <mat-label>Személy neve:</mat-label>
+        <input placeholder="Név" matInput [(ngModel)]="adatok.szemely.szemely_nev">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Személy poszt:</mat-label>
+        <mat-select [(ngModel)]="adatok.szemely.szemely_poszt">
+          <mat-option value="TULAJDONOS">Tulajdonos</mat-option>
+          <mat-option value="PINCER">Pincér</mat-option>
+          <mat-option value="SZAKACS">Szakács</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Fiók név:</mat-label>
+        <input placeholder="Felhasználónév" matInput [(ngModel)]="adatok.szemely.felhasznalonev">
+      </mat-form-field>
+    </ng-template>
+  </div>
+  <ng-template #elseTemplate>
+    Biztosan akarod törölni <b>{{adatok.szemely.szemely_nev}}</b>-t ?
+  </ng-template>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="frissites()">{{muveletTipus}}</button>
+  <button mat-raised-button color="warn" (click)="bezaras()">Mégse</button>
+</div>

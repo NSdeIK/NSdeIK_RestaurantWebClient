@@ -12,22 +12,37 @@ import { BejelentkezesComponent } from "./components/login/bejelentkezes/bejelen
 import { authInterceptorProviders } from './auth/auth.interceptor';
 import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
 import { SzemelyListaComponent } from "./components/szemely-lista/szemely-lista.component";
-//
-//import { SzemelyServiceService } from './service/szemely-service.service';
-//import { SzemelyListaComponent } from './szemely-lista/szemely-lista.component';
+import { DialogDobozComponent } from './components/dialog-doboz/dialog-doboz.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSelectModule} from "@angular/material/select";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent,
     BejelentkezesComponent,
     KezdolapComponent,
-    SzemelyListaComponent
+    SzemelyListaComponent,
+    DialogDobozComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
