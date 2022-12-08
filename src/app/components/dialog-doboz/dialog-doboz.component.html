@@ -23,26 +23,43 @@
       </mat-form-field>
     </div>
     <ng-template #adatTemplate>
+      <div *ngIf="muveletTipus != 'Új asztal'; else ujAsztalTemplate">
+        <mat-form-field appearance="fill">
+          <mat-label>Személy neve:</mat-label>
+          <input placeholder="Név" matInput [(ngModel)]="adatok.szemely.szemely_nev">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Személy poszt:</mat-label>
+          <mat-select [(ngModel)]="adatok.szemely.szemely_poszt">
+            <mat-option value="TULAJDONOS">Tulajdonos</mat-option>
+            <mat-option value="PINCER">Pincér</mat-option>
+            <mat-option value="SZAKACS">Szakács</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Fiók név:</mat-label>
+          <input placeholder="Felhasználónév" matInput [(ngModel)]="adatok.szemely.felhasznalonev">
+        </mat-form-field>
+      </div>
+    </ng-template>
+    <ng-template #ujAsztalTemplate>
       <mat-form-field appearance="fill">
-        <mat-label>Személy neve:</mat-label>
-        <input placeholder="Név" matInput [(ngModel)]="adatok.szemely.szemely_nev">
+        <mat-label>Asztal neve</mat-label>
+        <input placeholder="Asztal neve" matInput [(ngModel)]="adatok.asztal.asztalneve" required>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Személy poszt:</mat-label>
-        <mat-select [(ngModel)]="adatok.szemely.szemely_poszt">
-          <mat-option value="TULAJDONOS">Tulajdonos</mat-option>
-          <mat-option value="PINCER">Pincér</mat-option>
-          <mat-option value="SZAKACS">Szakács</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Fiók név:</mat-label>
-        <input placeholder="Felhasználónév" matInput [(ngModel)]="adatok.szemely.felhasznalonev">
+        <mat-label>Hány fős az asztal?</mat-label>
+        <input placeholder="Darabszáma" matInput type="number" min="1" max="10" [(ngModel)]="adatok.asztal.fo" required>
       </mat-form-field>
     </ng-template>
   </div>
   <ng-template #elseTemplate>
-    Biztosan akarod törölni <b>{{adatok.szemely.szemely_nev}}</b>-t ?
+    <div *ngIf="adatok.szemely != null">
+      Biztosan akarod törölni <b>{{adatok.szemely.szemely_nev}}</b>-t ?
+    </div>
+    <div *ngIf="adatok.asztal != null">
+      Biztosan akarod törölni <b>{{adatok.asztal.asztal_nev}}</b>-t ?
+    </div>
   </ng-template>
 </mat-dialog-content>
 <div mat-dialog-actions>

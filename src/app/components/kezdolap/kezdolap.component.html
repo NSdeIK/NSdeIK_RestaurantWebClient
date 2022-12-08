@@ -1,1 +1,32 @@
-<p>kezdolap works!</p>
+<button mat-fab class="hozzaad" *ngIf="role == 'TULAJDONOS'" (click)="dialog_add('Új asztal')"><mat-icon>add</mat-icon></button>
+<mat-grid-list cols="4" rowHeight="100px" gutterSize="50px" class="tablak">
+  <mat-grid-tile class="tabla"
+                 *ngFor="let asztal of asztalok"
+                 [colspan]="1"
+                 [rowspan]="2"
+                 [ngStyle]="{'background-color': (asztal.statusz=='szabad') ? '#50C878' : '#FF5349'}">
+    <div *ngIf="asztal.statusz =='szabad' else elseTemplate">
+      <div class="torles_pozicio">
+        <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)"><mat-icon>close</mat-icon></button>
+      </div>
+
+      <div class="vcenter">
+          <span class="aligned-with-icon">{{asztal.asztal_nev}}</span>
+          <mat-icon>people</mat-icon><span class="aligned-with-icon">{{asztal.maxfo}} férőhely</span>
+      </div>
+    </div>
+    <ng-template #elseTemplate>
+      <div class="torles_pozicio">
+        <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)"><mat-icon>close</mat-icon></button>
+      </div>
+      <div class="row vcenter" style="width: 100%">
+        <div class="col-md-auto vcenter betuszin">
+          <span class="aligned-with-icon">{{asztal.asztal_nev}}</span>
+          <mat-icon>people</mat-icon><span class="aligned-with-icon">{{asztal.maxfo}} férőhely</span>
+        </div>
+      </div>
+
+    </ng-template>
+  </mat-grid-tile>
+</mat-grid-list>
+<div class="ures_resz"></div>

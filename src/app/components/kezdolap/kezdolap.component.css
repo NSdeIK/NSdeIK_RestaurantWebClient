@@ -1,0 +1,52 @@
+.tablak{
+  margin-top: 6em;
+}
+.tabla{
+  border-radius: 25px;
+}
+
+.kor_ikon{
+  background-color: darkseagreen;
+}
+
+.szerkesztes_ikon{
+  background-color: #e78849;
+}
+
+.vcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  float: none;
+  text-align: center;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.betuszin{
+  color: #ffffff;
+}
+
+.hozzaad{
+  float: right;
+  margin-top: -4.5em;
+  background-color: #50C878;
+}
+
+.ures_resz{
+  height: 6em;
+}
+
+.torles_pozicio{
+  display: block;
+  position: absolute;
+  top:0.5em;
+  right: 0.5em;
+}
+
+.X_gomb{
+  background-color: black;
+}

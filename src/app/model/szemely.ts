@@ -1,5 +1,5 @@
 export class Szemely {
-    szemely_id! : String;
-    szemely_nev!: String;
-    szemely_poszt!: String;
+    szemely_id! : string;
+    szemely_nev!: string;
+    szemely_poszt!: string;
 }
