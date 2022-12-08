@@ -14,8 +14,8 @@ export class AsztalService {
 
   constructor(private http: HttpClient) {
     this.asztalokUrl = 'http://localhost:8080/restaurant/api/asztalok';
-    this.ujAsztalUrl = 'http://localhost:8080/restaurant/api/ujAsztal';
-    this.asztalTorlesUrl ='http://localhost:8080/restaurant/api/asztalTorles';
+    this.ujAsztalUrl = 'http://localhost:8080/restaurant/api/admin/ujAsztal';
+    this.asztalTorlesUrl ='http://localhost:8080/restaurant/api/admin/asztalTorles';
   }
 
   public osszesAsztal(): Observable<Asztal[]> {

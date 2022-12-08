@@ -15,11 +15,11 @@ export class SzemelyServiceService {
   private addSzakacs: string;
 
   constructor(private http: HttpClient) {
-    this.szemelyekUrl = 'http://localhost:8080/restaurant/api/szemelyek';
-    this.szemelyFrissitesUrl = 'http://localhost:8080/restaurant/api/szemelyFrissites';
-    this.szemelyTorlesUrl = 'http://localhost:8080/restaurant/api/szemelyTorles';
-    this.addPincer = 'http://localhost:8080/restaurant/api/addPincer';
-    this.addSzakacs = 'http://localhost:8080/restaurant/api/addSzakacs';
+    this.szemelyekUrl = 'http://localhost:8080/restaurant/api/admin/szemelyek';
+    this.szemelyFrissitesUrl = 'http://localhost:8080/restaurant/api/admin/szemelyFrissites';
+    this.szemelyTorlesUrl = 'http://localhost:8080/restaurant/api/admin/szemelyTorles';
+    this.addPincer = 'http://localhost:8080/restaurant/api/admin/addPincer';
+    this.addSzakacs = 'http://localhost:8080/restaurant/api/admin/addSzakacs';
   }
 
   public osszesSzemely(): Observable<Szemely[]> {
