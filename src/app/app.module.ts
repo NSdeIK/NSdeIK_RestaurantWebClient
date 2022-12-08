@@ -22,6 +22,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { AsztalkezelesComponent } from './components/asztalkezeles/asztalkezeles.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
     KezdolapComponent,
     SzemelyListaComponent,
     DialogDobozComponent,
+    AsztalkezelesComponent,
   ],
     imports: [
         BrowserModule,

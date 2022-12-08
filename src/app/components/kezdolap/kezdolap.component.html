@@ -4,7 +4,8 @@
                  *ngFor="let asztal of asztalok"
                  [colspan]="1"
                  [rowspan]="2"
-                 [ngStyle]="{'background-color': (asztal.statusz=='szabad') ? '#50C878' : '#FF5349'}">
+                 [ngStyle]="{'background-color': (asztal.statusz=='szabad') ? '#50C878' : '#FF5349'}"
+                 routerLink="/asztal/{{asztal.asztal_id}}">
     <div *ngIf="asztal.statusz =='szabad' else elseTemplate">
       <div class="torles_pozicio">
         <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)"><mat-icon>close</mat-icon></button>
