@@ -1,1 +1,150 @@
-<p>{{id}}</p>
+<mat-grid-list cols="1" rowHeight="2:1" *ngIf="asztal.statusz == 'szabad'; else foglaltAsztal">
+  <mat-grid-tile>
+  <mat-stepper orientation="vertical">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Hány fő érkezett erre az asztalra?</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Fő darabszáma</mat-label>
+          <input type="number" matInput placeholder="Pl. 5" formControlName="firstCtrl" min="1" [max]="asztal.maxfo" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext class="gomb">Következő</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Ki kezeli az asztalt?</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Pincér neve</mat-label>
+          <mat-select (valueChange)="changeValue($event)">
+            <mat-option *ngFor="let szemely of szemelyek" [value]="szemely">
+              {{szemely.szemely_nev}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext class="gomb">Következő</button>
+          <button mat-button matStepperPrevious class="vissza">Vissza</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Asztal foglalás</ng-template>
+      <p>Asztal információk</p>
+      <ul>
+        <li>
+          Asztal neve: {{asztal.asztal_nev}}
+        </li>
+        <li>
+          Kezeli: <span *ngIf="kivalasztott">{{kivalasztott.szemely_nev}}</span>
+        </li>
+        <li>
+          Személyek száma: {{firstFormGroup.value.firstCtrl}}/{{asztal.maxfo}}
+        </li>
+      </ul>
+      <div>
+        <button mat-button class="gomb" (click)="asztalfoglalas()">Lefoglalás</button>
+        <button mat-button matStepperPrevious class="vissza">Vissza</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  </mat-grid-tile>
+</mat-grid-list>
+<ng-template #foglaltAsztal >
+  <div class="row center justify-content-md-center">
+    <div class="col-sm-4 col-xl-3">
+      <div class="card">
+        <div class="card-heading p-4">
+          <div>
+            <h5 class="font-16 text-center">Kezeli</h5>
+          </div>
+          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.kezelo_szemely_nev}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-xl-3">
+      <div class="card">
+        <div class="card-heading p-4">
+          <div>
+            <h5 class="font-16 text-center">Asztal neve</h5>
+          </div>
+          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.asztal_nev}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-xl-3">
+      <div class="card">
+        <div class="card-heading p-4">
+          <div>
+            <h5 class="font-16 text-center">Vendégek száma</h5>
+          </div>
+          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.vendegek_szama}}/{{foglaltAsztalAdatok.maxfo}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body">
+          <h4 class="mt-0 text-center">Kifizetési összeg:</h4>
+          <div class="text-center"><span >5460 Ft</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5">
+      <div class="card m-b-30">
+        <div class="card-body">
+          <h4 class="mt-0 header-title mb-4 text-center">Megrendelések</h4>
+          <table class="table">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Megrendelés neve</th>
+              <th scope="col">Szakács készítette</th>
+              <th scope="col">Ára</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Kaja-1</td>
+              <td>SzakácsNeve1</td>
+              <td>1234Ft</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Kaja-2</td>
+              <td>SzakácsNeve2</td>
+              <td>1234Ft</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Kaja-3</td>
+              <td>SzakácsNeve3</td>
+              <td>1234Ft</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+    <div class="col-xl-4">
+      <div class="card m-b-30">
+        <div class="card-body">
+          <h4 class="mt-0 header-title mb-4 text-center">Műveletek</h4>
+          <div class="col text-center">
+            <button class="btn btn-success btn-lg">Megrendelés hozzáadása</button>
+          </div>
+          <div class="col m-3 text-center">
+            <button class="btn btn-primary btn-lg">Véglegesítés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+</ng-template>

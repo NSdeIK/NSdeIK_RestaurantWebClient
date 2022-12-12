@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 //Custom import
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BejelentkezesComponent } from "./components/login/bejelentkezes/bejelentkezes.component"
 
 import { authInterceptorProviders } from './auth/auth.interceptor';
@@ -23,6 +23,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { AsztalkezelesComponent } from './components/asztalkezeles/asztalkezeles.component';
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -33,21 +34,23 @@ import { AsztalkezelesComponent } from './components/asztalkezeles/asztalkezeles
     DialogDobozComponent,
     AsztalkezelesComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatIconModule,
-        MatGridListModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+  ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
