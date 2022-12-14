@@ -85,59 +85,46 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row justify-content-md-center">
     <div class="col-xl-3">
       <div class="card m-b-30">
         <div class="card-body">
           <h4 class="mt-0 text-center">Kifizetési összeg:</h4>
-          <div class="text-center"><span >5460 Ft</span></div>
+          <div class="text-center"><span >{{kifizetesi_osszeg()}} Ft</span></div>
         </div>
       </div>
     </div>
-    <div class="col-xl-5">
+    <div class="col-xl-6">
       <div class="card m-b-30">
         <div class="card-body">
-          <h4 class="mt-0 header-title mb-4 text-center">Megrendelések</h4>
+          <h4 class="mt-0 header-title mb-4 text-center">Megrendelési várólista</h4>
           <table class="table">
             <thead class="thead-light">
-            <tr>
+            <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Megrendelés neve</th>
-              <th scope="col">Szakács készítette</th>
-              <th scope="col">Ára</th>
+              <th scope="col">Darab</th>
+              <th scope="col">Bekérési idő</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Kaja-1</td>
-              <td>SzakácsNeve1</td>
-              <td>1234Ft</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Kaja-2</td>
-              <td>SzakácsNeve2</td>
-              <td>1234Ft</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Kaja-3</td>
-              <td>SzakácsNeve3</td>
-              <td>1234Ft</td>
-            </tr>
+              <tr class="text-center" *ngFor="let varolista of megrendeles_varolista">
+                <th scope="row">1</th>
+                <td>{{varolista.megrendeles_neve}}</td>
+                <td>{{varolista.megrendeles_db}}</td>
+                <td>{{varolista.megrendeles_bekeresi_ido}}</td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <!-- end col -->
-    <div class="col-xl-4">
+    <div class="col-xl-3">
       <div class="card m-b-30">
         <div class="card-body">
           <h4 class="mt-0 header-title mb-4 text-center">Műveletek</h4>
           <div class="col text-center">
-            <button class="btn btn-success btn-lg">Megrendelés hozzáadása</button>
+            <button class="btn btn-success btn-lg" (click)="dialog_add('hozzaad')">Megrendelés hozzáadása</button>
           </div>
           <div class="col m-3 text-center">
             <button class="btn btn-primary btn-lg">Véglegesítés</button>
@@ -145,6 +132,34 @@
         </div>
       </div>
     </div>
-    <!-- end col -->
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-xl-8">
+      <div class="card m-b-30">
+        <div class="card-body">
+          <h4 class="mt-0 header-title mb-4 text-center">Megrendelések</h4>
+          <table class="table">
+            <thead class="thead-light">
+            <tr class="text-center">
+              <th scope="col">#</th>
+              <th scope="col">Megrendelés neve</th>
+              <th scope="col">Szakács készítette</th>
+              <th scope="col">Darab</th>
+              <th scope="col">Ára</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" *ngFor="let megrendeles of megrendelesek">
+              <th scope="row">1</th>
+              <td>{{megrendeles.megrendeles_neve}}</td>
+              <td>{{megrendeles.szakacs}}</td>
+              <td>{{megrendeles.megrendeles_db}}</td>
+              <td>{{megrendeles.megrendeles_ara}} Ft</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>

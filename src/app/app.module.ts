@@ -24,6 +24,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { AsztalkezelesComponent } from './components/asztalkezeles/asztalkezeles.component';
 import {MatStepperModule} from "@angular/material/stepper";
+import {AsztalkezelesDialogDobozComponent} from "./components/dialog-doboz/asztalkezeles-dialog-doboz.component";
+import {MatRadioModule} from "@angular/material/radio";
+import { EtlapComponent } from './components/etlap/etlap.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -32,7 +36,9 @@ import {MatStepperModule} from "@angular/material/stepper";
     KezdolapComponent,
     SzemelyListaComponent,
     DialogDobozComponent,
+    AsztalkezelesDialogDobozComponent,
     AsztalkezelesComponent,
+    EtlapComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +56,8 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatGridListModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatRadioModule,
+    MatCardModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

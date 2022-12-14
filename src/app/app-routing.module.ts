@@ -7,12 +7,14 @@ import { AuthGuard } from "./auth/auth.guard";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpRequestInterceptor} from "./auth/http.interceptor";
 import { AsztalkezelesComponent } from './components/asztalkezeles/asztalkezeles.component';
+import {EtlapComponent} from "./components/etlap/etlap.component";
 
 const routes: Routes = [
   {path: 'kezdolap', component: KezdolapComponent, canActivate: [AuthGuard]},
   {path: 'bejelentkezes', component: BejelentkezesComponent},
   {path: 'szemelyek', component: SzemelyListaComponent},
   {path: 'asztal/:id', component: AsztalkezelesComponent},
+  {path: 'etlap', component: EtlapComponent},
   {path: '', redirectTo: 'kezdolap', pathMatch: 'full'}
 ];
 

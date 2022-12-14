@@ -15,6 +15,8 @@ export class AsztalService {
   private readonly asztalUrl: string;
   private readonly getSzemelyekListaUrl: string;
   private readonly asztalFoglalasUrl: string;
+  private readonly ujMegrendelesVarolistaUrl: string;
+  private readonly ujMegrendelesUrl: string;
 
   constructor(private http: HttpClient) {
     this.asztalokUrl = 'http://localhost:8080/restaurant/api/asztalok';
@@ -23,6 +25,8 @@ export class AsztalService {
     this.asztalTorlesUrl ='http://localhost:8080/restaurant/api/admin/asztalTorles';
     this.getSzemelyekListaUrl ='http://localhost:8080/restaurant/api/szemelyek';
     this.asztalFoglalasUrl = 'http://localhost:8080/restaurant/api/asztal_lefoglalas';
+    this.ujMegrendelesVarolistaUrl = 'http://localhost:8080/restaurant/api/asztal_ujmegrendelesvarolista';
+    this.ujMegrendelesUrl = 'http://localhost:8080/restaurant/api/asztal_ujmegrendeles';
   }
 
   public osszesAsztal(): Observable<Asztal[]> {
@@ -49,4 +53,11 @@ export class AsztalService {
     return this.http.get<Szemely[]>(this.getSzemelyekListaUrl);
   }
 
+  public ujMegrendelesVarolista(data: any){
+    return this.http.post<any>(this.ujMegrendelesVarolistaUrl,data);
+  }
+
+  public ujMegrendeles(data: any){
+    return this.http.post<any>(this.ujMegrendelesUrl,data);
+  }
 }

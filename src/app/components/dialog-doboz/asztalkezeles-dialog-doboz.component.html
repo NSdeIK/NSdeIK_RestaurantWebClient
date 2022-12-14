@@ -1,0 +1,60 @@
+<h2 mat-dialog-title><strong>Megrendelés hozzáadása</strong></h2>
+<mat-dialog-content class="mat-typography" *ngIf="muveletTipus == 'hozzaad'">
+  <mat-stepper [linear]=true #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" class="d-flex justify-content-center">
+        <ng-template matStepLabel>Típusa:</ng-template>
+        <div class="col-md-8">
+        <div class="row text-center">
+          <mat-radio-group aria-label="Válassz ki a típusát!" formControlName="firstCtrl">
+            <mat-radio-button value="1" (change)="kivalasztottTipus($event)">Kaja</mat-radio-button>
+            <mat-radio-button value="2" (change)="kivalasztottTipus($event)">Ital</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="row">
+          <button mat-button matStepperNext (click)="etlapTipus()">Következő</button>
+        </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Válassz ki a megrendelés nevét és add meg a darabszámát!">
+      <form [formGroup]="secondFormGroup">
+        <div class="col-md-4">
+          <div class="row">
+            <mat-form-field appearance="fill">
+              <mat-label>Megrendelés neve</mat-label>
+                <mat-select [formControlName]="'etlap'">
+                  <mat-option *ngFor="let melyik of kivalasztottAdatok" [value]="melyik" >
+                    {{melyik.etlap_neve}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="fill">
+              <mat-label>Hány darab?</mat-label>
+              <input placeholder="Darabszáma" matInput formControlName="etlapDarab" type="number" min="1" max="99">
+            </mat-form-field>
+          </div>
+        <div>
+          <button mat-button matStepperPrevious>Vissza</button>
+          <button mat-button matStepperNext>Következő</button>
+        </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Ellenőrzés</ng-template>
+      <div>
+        <div class="row">
+          {{etlap_neve}}
+        </div>
+        <div class="row">
+          Mennyiség: {{darab}} db
+        </div>
+        <button mat-button matStepperPrevious>Vissza</button>
+        <button mat-button (click)="hozzaad()">Hozzáad</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</mat-dialog-content>
