@@ -1,12 +1,12 @@
 <mat-dialog-content class="mat-typography" *ngIf="muveletTipus == 'hozzaad'">
   <h3 class="m-3"><strong>Megrendelés hozzáadása</strong></h3>
   <mat-stepper [linear]="true" orientation="vertical">
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" class="d-flex m-3">
+    <mat-step [stepControl]="etlapTipusGroup">
+      <form [formGroup]="etlapTipusGroup" class="d-flex m-3">
         <ng-template matStepLabel>Típusa:</ng-template>
         <div class="col-md-8">
         <div class="row">
-          <mat-radio-group aria-label="Válassz ki a típusát!" formControlName="firstCtrl" required>
+          <mat-radio-group aria-label="Válassz ki a típusát!" formControlName="melyik" required>
             <mat-radio-button value="1" (change)="kivalasztottTipus($event)">Kaja</mat-radio-button>
             <mat-radio-button value="2" (change)="kivalasztottTipus($event)">Ital</mat-radio-button>
           </mat-radio-group>
@@ -17,8 +17,8 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Válassz ki a megrendelés nevét és add meg a darabszámát!">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="megrendelesGroup" label="Válassz ki a megrendelés nevét és add meg a darabszámát!">
+      <form [formGroup]="megrendelesGroup">
         <div class="col-md-4 m-3">
           <div class="row">
             <mat-form-field appearance="fill">

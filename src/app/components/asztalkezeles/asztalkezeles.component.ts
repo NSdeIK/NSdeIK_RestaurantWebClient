@@ -11,6 +11,7 @@ import {AsztalkezelesDialogDobozComponent} from "../dialog-doboz/asztalkezeles-d
 import {EtlapService} from "../../service/etlap.service";
 import {Etlap} from "../../model/etlap";
 import {Megrendelesek} from "../../model/megrendelesek";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-asztalkezeles',
@@ -18,13 +19,13 @@ import {Megrendelesek} from "../../model/megrendelesek";
   styleUrls: ['./asztalkezeles.component.css']
 })
 export class AsztalkezelesComponent {
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+  asztalfoszama = this._formBuilder.group({
+    maxfo: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: [Szemely, Validators.required],
+  asztalkezeloszemely = this._formBuilder.group({
+    kezeloszemely: [Szemely, Validators.required],
   });
-  constructor(private route: ActivatedRoute,private router: Router, private asztalService: AsztalService,private etlapService: EtlapService, private _formBuilder: FormBuilder, private matDialog: MatDialog) {}
+  constructor(private route: ActivatedRoute,private router: Router, private asztalService: AsztalService,private etlapService: EtlapService, private _formBuilder: FormBuilder, private matDialog: MatDialog, private snackBar : MatSnackBar) {}
 
   id! : string;
   asztal!: Asztal;
@@ -34,6 +35,7 @@ export class AsztalkezelesComponent {
   megrendeles_varolista: MegrendelesVarolista[] = [];
   megrendelesek : Megrendelesek[] = [];
   etlapok!: Etlap[];
+  snackBarConfig : MatSnackBarConfig = {horizontalPosition:"center",verticalPosition: "top", duration: 2500};
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -71,7 +73,7 @@ export class AsztalkezelesComponent {
     let objekt = {
       "asztal_id" : this.asztal.asztal_id,
       "kezelo_szemely_id" : this.kivalasztott.szemely_id,
-      "vendegek_szama" : this.firstFormGroup.value.firstCtrl
+      "vendegek_szama" : this.asztalfoszama.value.maxfo
     }
     this.asztalService.asztalFoglalas(objekt).subscribe(
       {
@@ -79,8 +81,8 @@ export class AsztalkezelesComponent {
           this.foglaltAsztalAdatok = data
           this.asztal.statusz = "foglalt"
         },
-        error: (hiba) => {
-          console.error(hiba)
+        error: (err) => {
+          this.snackBar.open("Hiba történt! Oka: "+err,"OK",this.snackBarConfig);
         }
       }
       )
@@ -99,7 +101,13 @@ export class AsztalkezelesComponent {
       "kifizetesi_osszeg": this.kifizetesi_osszeg(),
       "mikor_veglegesitette": veglegesites_ido
     }
-    this.asztalService.veglegesites(objekt).subscribe();
+    this.asztalService.veglegesites(objekt).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/kezdolap')
+      },error: (err) =>{
+        this.hiba_snackbar(err);
+      }
+    });
   }
 
   dialog_add(muvelet:string) {
@@ -138,10 +146,14 @@ export class AsztalkezelesComponent {
               "megrendeles_bekeresi_ido": varolista.megrendeles_bekeresi_ido
             }
 
-            this.asztalService.ujMegrendelesVarolista(objekt).subscribe();
+            this.asztalService.ujMegrendelesVarolista(objekt).subscribe({
+              next: () => { this.sikeres_snackbar() },
+              error: err => { this.hiba_snackbar(err) }
+            });
             this.megrendeles_varolista.push(varolista);
 
-          } else if (eredmeny.melyik == 2) {
+          }
+          else if (eredmeny.melyik == 2) {
             let megrendelesek = new Megrendelesek()
             megrendelesek.megrendeles_id = eredmeny.etlap.etlap_id;
             megrendelesek.megrendeles_db = eredmeny.darab;
@@ -157,7 +169,13 @@ export class AsztalkezelesComponent {
               "megrendeles_ara": megrendelesek.megrendeles_ara
             }
 
-            this.asztalService.ujMegrendeles(objekt).subscribe();
+            this.asztalService.ujMegrendeles(objekt).subscribe({
+              next: () =>{
+                this.sikeres_snackbar();
+            },error: err => {
+                this.hiba_snackbar(err);
+              }
+            });
 
           }
         }else if(eredmeny.event == 'veglegesites'){
@@ -167,5 +185,11 @@ export class AsztalkezelesComponent {
     })
   }
 
+  sikeres_snackbar(){
+    this.snackBar.open("Sikeresen megtörtént!","OK",this.snackBarConfig);
+  }
+  hiba_snackbar(err:string){
+    this.snackBar.open("Hiba történt! Oka: "+err,"OK",this.snackBarConfig);
+  }
 
 }

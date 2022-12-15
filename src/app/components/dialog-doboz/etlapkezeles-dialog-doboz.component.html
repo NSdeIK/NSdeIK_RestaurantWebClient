@@ -13,7 +13,7 @@
     <div class="col-4 d-flex justify-content-center">
       <mat-form-field appearance="fill">
         <mat-label>Étlap ára: </mat-label>
-        <input placeholder="Étlap ára" name="etlap_ara" matInput [value]="adatok.melyik.etlap_ara" required>
+        <input placeholder="Étlap ára" name="etlap_ara" matInput type="number" [value]="adatok.melyik.etlap_ara" required>
       </mat-form-field>
     </div>
     <input type="hidden" name="etlap_id" [value]="adatok.melyik.etlap_id">

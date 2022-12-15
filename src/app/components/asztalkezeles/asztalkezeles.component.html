@@ -2,20 +2,20 @@
     <mat-grid-list cols="1" rowHeight="30em" >
       <mat-grid-tile *ngIf="asztal.statusz == 'szabad'; else foglaltAsztal">
         <mat-stepper orientation="vertical" linear>
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
+          <mat-step [stepControl]="asztalfoszama">
+            <form [formGroup]="asztalfoszama">
               <ng-template matStepLabel>Hány fő érkezett erre az asztalra?</ng-template>
               <mat-form-field appearance="fill">
                 <mat-label>Fő darabszáma</mat-label>
-                <input type="number" matInput placeholder="Pl. 5" formControlName="firstCtrl" min="1" [max]="asztal.maxfo" required>
+                <input type="number" matInput placeholder="Pl. 5" formControlName="maxfo" min="1" [max]="asztal.maxfo" required>
               </mat-form-field>
               <div>
                 <button mat-button matStepperNext class="gomb">Következő</button>
               </div>
             </form>
           </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
+          <mat-step [stepControl]="asztalkezeloszemely">
+            <form [formGroup]="asztalkezeloszemely">
               <ng-template matStepLabel>Ki kezeli az asztalt?</ng-template>
               <mat-form-field appearance="fill">
                 <mat-label>Pincér neve</mat-label>
@@ -42,7 +42,7 @@
                 Kezeli: <span *ngIf="kivalasztott">{{kivalasztott.szemely_nev}}</span>
               </li>
               <li>
-                Személyek száma: {{firstFormGroup.value.firstCtrl}}/{{asztal.maxfo}}
+                Személyek száma: {{asztalfoszama.value.maxfo}}/{{asztal.maxfo}}
               </li>
             </ul>
             <div>

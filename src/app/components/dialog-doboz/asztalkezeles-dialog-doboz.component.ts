@@ -14,10 +14,10 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 
 export class AsztalkezelesDialogDobozComponent{
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: new FormControl('1'),
+  etlapTipusGroup = this._formBuilder.group({
+    melyik: new FormControl('1'),
   });
-  secondFormGroup = this._formBuilder.group({
+  megrendelesGroup = this._formBuilder.group({
     etlap: [Etlap, Validators.required],
     etlapDarab: [1, Validators.required]
   });
@@ -55,15 +55,15 @@ export class AsztalkezelesDialogDobozComponent{
     this.kivalasztottEtlapTipus = event.value;
   }
   get etlap_id() {
-    return this.secondFormGroup.get('etlap')?.getRawValue().etlap_id
+    return this.megrendelesGroup.get('etlap')?.getRawValue().etlap_id
   }
 
   get etlap_neve() {
-    return this.secondFormGroup.get('etlap')?.getRawValue().etlap_neve
+    return this.megrendelesGroup.get('etlap')?.getRawValue().etlap_neve
   }
 
   get darab() {
-    return this.secondFormGroup.get('etlapDarab')?.value
+    return this.megrendelesGroup.get('etlapDarab')?.value
   }
 
   etlapTipus(){
@@ -79,7 +79,7 @@ export class AsztalkezelesDialogDobozComponent{
   }
 
   hozzaad(){
-    this.dialog.close({"event": this.muveletTipus,"melyik": this.kivalasztottEtlapTipus, "etlap": this.secondFormGroup.get('etlap')?.getRawValue(), "darab": this.darab});
+    this.dialog.close({"event": this.muveletTipus,"melyik": this.kivalasztottEtlapTipus, "etlap": this.megrendelesGroup.get('etlap')?.getRawValue(), "darab": this.darab});
   }
 
 }
