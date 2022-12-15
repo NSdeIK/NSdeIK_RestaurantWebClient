@@ -9,6 +9,7 @@ import {Szemely} from "../model/szemely";
 })
 export class AsztalService {
 
+  private readonly apiurl = "http://localhost:8080/restaurant/api";
   private readonly asztalokUrl: string;
   private readonly ujAsztalUrl: string;
   private readonly asztalTorlesUrl: string;
@@ -17,16 +18,22 @@ export class AsztalService {
   private readonly asztalFoglalasUrl: string;
   private readonly ujMegrendelesVarolistaUrl: string;
   private readonly ujMegrendelesUrl: string;
+  private readonly torlesMegrendelesVarolistaUrl: string;
+  private readonly megrendelesekUrl: string;
+  private readonly veglegesitesUrl: string;
 
   constructor(private http: HttpClient) {
-    this.asztalokUrl = 'http://localhost:8080/restaurant/api/asztalok';
-    this.asztalUrl = 'http://localhost:8080/restaurant/api/asztal';
-    this.ujAsztalUrl = 'http://localhost:8080/restaurant/api/admin/ujAsztal';
-    this.asztalTorlesUrl ='http://localhost:8080/restaurant/api/admin/asztalTorles';
-    this.getSzemelyekListaUrl ='http://localhost:8080/restaurant/api/szemelyek';
-    this.asztalFoglalasUrl = 'http://localhost:8080/restaurant/api/asztal_lefoglalas';
-    this.ujMegrendelesVarolistaUrl = 'http://localhost:8080/restaurant/api/asztal_ujmegrendelesvarolista';
-    this.ujMegrendelesUrl = 'http://localhost:8080/restaurant/api/asztal_ujmegrendeles';
+    this.asztalokUrl = this.apiurl + '/asztalok';
+    this.asztalUrl = this.apiurl + '/asztal';
+    this.ujAsztalUrl = this.apiurl + '/admin/ujAsztal';
+    this.asztalTorlesUrl = this.apiurl + '/admin/asztalTorles';
+    this.getSzemelyekListaUrl = this.apiurl + '/szemelyek';
+    this.asztalFoglalasUrl = this.apiurl + '/asztal_lefoglalas';
+    this.ujMegrendelesVarolistaUrl = this.apiurl + '/asztal_ujmegrendelesvarolista';
+    this.ujMegrendelesUrl = this.apiurl + '/asztal_ujmegrendeles';
+    this.torlesMegrendelesVarolistaUrl = this.apiurl + '/asztal_torlesmegrendelesvarolista';
+    this.megrendelesekUrl = this.apiurl + '/osszesmegrendelesek';
+    this.veglegesitesUrl = this.apiurl + '/veglegesites';
   }
 
   public osszesAsztal(): Observable<Asztal[]> {
@@ -49,6 +56,10 @@ export class AsztalService {
     return this.http.get<Asztal>(this.asztalUrl+"/"+id);
   }
 
+  public veglegesites(data: any){
+    return this.http.post<any>(this.veglegesitesUrl,data);
+  }
+
   public getSzemelyek(): Observable<Szemely[]> {
     return this.http.get<Szemely[]>(this.getSzemelyekListaUrl);
   }
@@ -57,7 +68,15 @@ export class AsztalService {
     return this.http.post<any>(this.ujMegrendelesVarolistaUrl,data);
   }
 
+  public torlesMegrendelesVarolista(id: string){
+    return this.http.delete<any>(this.torlesMegrendelesVarolistaUrl+"/"+id);
+  }
+
   public ujMegrendeles(data: any){
     return this.http.post<any>(this.ujMegrendelesUrl,data);
+  }
+
+  public osszesMegrendelesek(){
+    return this.http.get<any>(this.megrendelesekUrl);
   }
 }

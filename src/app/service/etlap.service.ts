@@ -10,11 +10,14 @@ export class EtlapService {
   private readonly addEtelUrl: string;
   private readonly addItalUrl: string;
   private readonly osszesEtlapUrl: string;
+  private readonly torlesetlap: string;
+  private readonly apiurl = "http://localhost:8080/restaurant/api";
 
   constructor(private http: HttpClient) {
-    this.addEtelUrl = 'http://localhost:8080/restaurant/api/admin/addEtel';
-    this.addItalUrl = 'http://localhost:8080/restaurant/api/admin/addItal';
-    this.osszesEtlapUrl = 'http://localhost:8080/restaurant/api/osszesEtlap';
+    this.addEtelUrl = this.apiurl+'/admin/addEtel';
+    this.addItalUrl = this.apiurl+'/admin/addItal';
+    this.osszesEtlapUrl = this.apiurl+'/osszesEtlap';
+    this.torlesetlap = this.apiurl+'/admin/etlapTorles';
   }
 
   public addEtel(data: any){
@@ -24,6 +27,10 @@ export class EtlapService {
 
   public addItal(data: any){
     return this.http.post<any>(this.addItalUrl,data);
+  }
+
+  public etlapTorles(id : string){
+    return this.http.delete<any>(this.torlesetlap+"/"+id);
   }
 
   public osszes(){

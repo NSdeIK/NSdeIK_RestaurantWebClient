@@ -1,33 +1,73 @@
-<button mat-fab class="hozzaad" *ngIf="role == 'TULAJDONOS'" (click)="dialog_add('Új asztal')"><mat-icon>add</mat-icon></button>
-<mat-grid-list cols="4" rowHeight="100px" gutterSize="50px" class="tablak">
-  <mat-grid-tile class="tabla"
-                 *ngFor="let asztal of asztalok"
-                 [colspan]="1"
-                 [rowspan]="2"
-                 [ngStyle]="{'background-color': (asztal.statusz=='szabad') ? '#50C878' : '#FF5349'}"
-                 routerLink="/asztal/{{asztal.asztal_id}}">
-    <div *ngIf="asztal.statusz =='szabad' else elseTemplate">
+<button mat-fab class="hozzaad" *ngIf="role == 'TULAJDONOS'" (click)="dialog_add('Új asztal')">
+  <mat-icon>add</mat-icon>
+</button>
+<mat-grid-list cols="4" rowHeight="100px" gutterSize="50px" class="tablak" *ngIf="role != 'SZAKACS'">
+  <ng-container *ngFor="let asztal of asztalok">
+    <mat-grid-tile [ngStyle]="{'background-color': (asztal.statusz=='szabad') ? '#50C878' : '#FF5349'}" class="tabla">
       <div class="torles_pozicio">
-        <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)"><mat-icon>close</mat-icon></button>
+        <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-6 col-md-6 text-center">
+          {{asztal.asztal_nev}}
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col text-center vcenter">
+          <mat-icon>people</mat-icon>
+          <span class="aligned-with-icon">{{asztal.maxfo}} férőhely</span>
+        </div>
+      </div>
+      </div>
+      <div class="bal_pozicio">
+        <button mat-mini-fab class="X_gomb" routerLink="/asztal/{{asztal.asztal_id}}">
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
 
-      <div class="vcenter">
-          <span class="aligned-with-icon">{{asztal.asztal_nev}}</span>
-          <mat-icon>people</mat-icon><span class="aligned-with-icon">{{asztal.maxfo}} férőhely</span>
-      </div>
-    </div>
-    <ng-template #elseTemplate>
-      <div class="torles_pozicio">
-        <button mat-mini-fab class="X_gomb" *ngIf="role == 'TULAJDONOS'" (click)="dialog('Törlés', asztal)"><mat-icon>close</mat-icon></button>
-      </div>
-      <div class="row vcenter" style="width: 100%">
-        <div class="col-md-auto vcenter betuszin">
-          <span class="aligned-with-icon">{{asztal.asztal_nev}}</span>
-          <mat-icon>people</mat-icon><span class="aligned-with-icon">{{asztal.maxfo}} férőhely</span>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
+<ng-container *ngIf="role == 'SZAKACS'">
+  <div cdkDropListGroup>
+
+    <div class="row justify-content-center m-4">
+      <div class="col-md-3">
+        <h2>Teendők</h2>
+        <div
+          cdkDropList
+          class="doboz"
+          [cdkDropListData]="megrendelesek">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-action card"
+                 *ngFor="let item of megrendelesek" cdkDrag>
+              <div class="card-body">{{item.megrendeles_neve}} - {{item.megrendeles_db}} darab</div>
+            </div>
+          </div>
         </div>
       </div>
 
-    </ng-template>
-  </mat-grid-tile>
-</mat-grid-list>
+      <div class="col-md-3">
+        <h2>Kész</h2>
+        <div
+          cdkDropList
+          class="doboz"
+          [cdkDropListData]="keszmegrendelesek"
+          (cdkDropListDropped)="atdob($event)">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-action card"
+                 *ngFor="let item of keszmegrendelesek" cdkDrag>
+              <div class="card-body">{{item.megrendeles_neve}} - {{item.megrendeles_db}} darab</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
 <div class="ures_resz"></div>
+

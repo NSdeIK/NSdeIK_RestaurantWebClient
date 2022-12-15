@@ -24,18 +24,27 @@ export class AsztalkezelesDialogDobozComponent{
 
   adatok : any;
   etlap!: Etlap[];
+  osszeg: number = 0;
   kivalasztottAdatok : any;
   kivalasztottEtlapTipus = 1;
   muveletTipus : string;
 
   constructor(public dialog: MatDialogRef<AsztalkezelesDialogDobozComponent>,@Optional() @Inject(MAT_DIALOG_DATA) public adat: any, private _formBuilder: FormBuilder) {
     this.adatok = {...adat};
-    this.etlap = this.adatok.etlap;
     this.muveletTipus = this.adatok.muvelet;
+    if(this.muveletTipus == 'hozzaad'){
+      this.etlap = this.adatok.etlap;
+    }else{
+      this.osszeg = this.adatok.osszeg;
+    }
   }
 
   frissites(){
-    this.dialog.close({event:this.muveletTipus,data:this.adatok});
+    if(this.muveletTipus == 'hozzaad'){
+      this.dialog.close({event:this.muveletTipus,data:this.adatok});
+    }else{
+      this.dialog.close({event:this.muveletTipus});
+    }
   }
 
   bezaras(){
@@ -70,7 +79,7 @@ export class AsztalkezelesDialogDobozComponent{
   }
 
   hozzaad(){
-    this.dialog.close({"melyik": this.kivalasztottEtlapTipus, "etlap": this.secondFormGroup.get('etlap')?.getRawValue(), "darab": this.darab});
+    this.dialog.close({"event": this.muveletTipus,"melyik": this.kivalasztottEtlapTipus, "etlap": this.secondFormGroup.get('etlap')?.getRawValue(), "darab": this.darab});
   }
 
 }

@@ -1,0 +1,39 @@
+<div *ngIf="adatok.muvelet == 'modositas'">
+  <form (submit)="modosit($event)">
+  <h3 class="text-center"><strong>Étlap módosítás</strong></h3>
+  <div class="d-flex justify-content-center">
+    <div class="col-4 d-flex justify-content-center">
+      <mat-form-field appearance="fill">
+        <mat-label>Étlap neve: </mat-label>
+        <input placeholder="Étlap neve" name="etlap_nev" matInput [value]="adatok.melyik.etlap_neve" required>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="col-4 d-flex justify-content-center">
+      <mat-form-field appearance="fill">
+        <mat-label>Étlap ára: </mat-label>
+        <input placeholder="Étlap ára" name="etlap_ara" matInput [value]="adatok.melyik.etlap_ara" required>
+      </mat-form-field>
+    </div>
+    <input type="hidden" name="etlap_id" [value]="adatok.melyik.etlap_id">
+    <input type="hidden" name="etlap_tipus" [value]="adatok.melyik.etlap_tipus">
+  </div>
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-primary btn-lg m-1" type="submit">Módosít</button>
+    <button class="btn btn-warning btn-lg m-1" mat-dialog-close>Mégse</button>
+  </div>
+  </form>
+</div>
+<div *ngIf="adatok.muvelet == 'torles'">
+  <div *ngIf="adatok.melyik != null">
+    <h3 class="text-center"><strong>Étlap törlése</strong></h3>
+    <mat-dialog-content class="mat-typography text-center">
+    <div>Biztosan akarod törölni <b> {{adatok.melyik.etlap_neve}} </b>-t ?</div>
+    </mat-dialog-content>
+  </div>
+  <div mat-dialog-actions class="justify-content-center">
+    <button mat-raised-button color="primary" (click)="torles(adatok.melyik)">Törlés</button>
+    <button mat-raised-button color="warn" mat-dialog-close >Mégse</button>
+  </div>
+</div>

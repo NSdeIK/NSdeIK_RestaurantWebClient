@@ -26,11 +26,11 @@
       <div *ngIf="muveletTipus != 'Új asztal'; else ujAsztalTemplate">
         <mat-form-field appearance="fill">
           <mat-label>Személy neve:</mat-label>
-          <input placeholder="Név" matInput [(ngModel)]="adatok.szemely.szemely_nev">
+          <input placeholder="Név" matInput [(ngModel)]="adatok.szemely.szemely_nev" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Személy poszt:</mat-label>
-          <mat-select [(ngModel)]="adatok.szemely.szemely_poszt">
+          <mat-select [(ngModel)]="adatok.szemely.szemely_poszt" required>
             <mat-option value="TULAJDONOS">Tulajdonos</mat-option>
             <mat-option value="PINCER">Pincér</mat-option>
             <mat-option value="SZAKACS">Szakács</mat-option>
@@ -38,7 +38,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Fiók név:</mat-label>
-          <input placeholder="Felhasználónév" matInput [(ngModel)]="adatok.szemely.felhasznalonev">
+          <input placeholder="Felhasználónév" matInput [(ngModel)]="adatok.szemely.felhasznalonev" required>
         </mat-form-field>
       </div>
     </ng-template>

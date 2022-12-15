@@ -28,6 +28,8 @@ import {AsztalkezelesDialogDobozComponent} from "./components/dialog-doboz/aszta
 import {MatRadioModule} from "@angular/material/radio";
 import { EtlapComponent } from './components/etlap/etlap.component';
 import {MatCardModule} from "@angular/material/card";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {EtlapkezelesDialogDobozComponent} from "./components/dialog-doboz/etlapkezeles-dialog-doboz.component";
 
 @NgModule({
   declarations: [
@@ -37,28 +39,30 @@ import {MatCardModule} from "@angular/material/card";
     SzemelyListaComponent,
     DialogDobozComponent,
     AsztalkezelesDialogDobozComponent,
+    EtlapkezelesDialogDobozComponent,
     AsztalkezelesComponent,
     EtlapComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    MatGridListModule,
-    ReactiveFormsModule,
-    MatStepperModule,
-    MatRadioModule,
-    MatCardModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatIconModule,
+        MatGridListModule,
+        ReactiveFormsModule,
+        MatStepperModule,
+        MatRadioModule,
+        MatCardModule,
+        DragDropModule,
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })

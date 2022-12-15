@@ -1,5 +1,6 @@
 .tablak{
   margin-top: 6em;
+  color: #fff8f8;
 }
 .tabla{
   border-radius: 25px;
@@ -11,15 +12,6 @@
 
 .szerkesztes_ikon{
   background-color: #e78849;
-}
-
-.vcenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  float: none;
-  text-align: center;
 }
 
 .capitalize {
@@ -47,6 +39,35 @@
   right: 0.5em;
 }
 
+.bal_pozicio{
+  display: block;
+  position: absolute;
+  top:0.5em;
+  left: 0.5em;
+}
+
 .X_gomb{
   background-color: black;
+}
+
+.doboz{
+  border: solid 1px #ccc;
+  min-height: 60px;
+  width: 100%;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.centered {
+  text-align: center;
+  font-size: 0;
+  margin: 0 auto;
+}
+.centered > div {
+  float: none;
+  display: inline-block;
+  text-align: left;
+  font-size: 13px;
 }

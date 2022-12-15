@@ -1,21 +1,25 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AsztalService} from "../../service/asztal.service";
 import {Asztal} from "../../model/asztal";
 import {TokenStorageService} from "../../service/tokenStorage.service";
 import {DialogDobozComponent} from "../dialog-doboz/dialog-doboz.component";
 import {MatDialog} from "@angular/material/dialog";
-import {Szemely} from "../../model/szemely";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {MegrendelesVarolista} from "../../model/megrendelesVarolista";
+import {interval, map, Subscription, timer} from "rxjs";
 
 @Component({
   selector: 'app-kezdolap',
   templateUrl: './kezdolap.component.html',
   styleUrls: ['./kezdolap.component.css']
 })
-export class KezdolapComponent {
+export class KezdolapComponent implements OnInit,OnDestroy{
   asztalok!: Asztal[];
+  megrendelesek: MegrendelesVarolista[] = [];
+  keszmegrendelesek: MegrendelesVarolista[] = [];
+  timerSubscription!: Subscription;
   bejelentkezve = false;
   role?: string | null;
-
 
   constructor(private asztalService: AsztalService, private tokenStorage: TokenStorageService, private matDialog: MatDialog) {
   }
@@ -25,9 +29,42 @@ export class KezdolapComponent {
     if (this.bejelentkezve) {
       this.role = this.tokenStorage.getRole();
     }
-    this.asztalService.osszesAsztal().subscribe(data => {
-      this.asztalok = data;
-    })
+    if(this.role != null && this.role != "SZAKACS")
+    {
+      this.asztalService.osszesAsztal().subscribe(data => {
+        this.asztalok = data;
+      })
+    }else {
+      this.timerSubscription = timer(0,10000).pipe(map(() => {
+        this.asztalService.osszesMegrendelesek().subscribe(data => {
+          this.megrendelesek = data;
+        })
+
+      })).subscribe();
+    }
+  }
+
+  ngOnDestroy() {
+    if(this.role == 'SZAKACS')
+    {
+      this.timerSubscription.unsubscribe();
+    }
+  }
+
+  atdob(event: CdkDragDrop<MegrendelesVarolista[]>) {
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+      let id = event.container.data[event.currentIndex].id;
+      this.asztalService.torlesMegrendelesVarolista(id).subscribe();
+    }
   }
 
   dialog_add(muvelet: string) {

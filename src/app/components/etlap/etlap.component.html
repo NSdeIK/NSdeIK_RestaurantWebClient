@@ -2,22 +2,24 @@
   <div class="col-md-6" data-aos="slide-up">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Étel hozzáadása</h5>
+        <h5 class="card-title text-center">Étel hozzáadása</h5>
         <form class="example-form" [formGroup]="etel_etlap" (ngSubmit)="etel_mentes()">
-          <div class="row">
-            <mat-form-field class="example-full-width">
+          <div class="row justify-content-center">
+            <mat-form-field class="col-sm-10">
               <mat-label>Étel neve</mat-label>
               <input matInput placeholder="Pl. Pizza" formControlName="etel_neve" value="">
             </mat-form-field>
           </div>
-          <div class="row">
-            <mat-form-field class="example-full-width">
+          <div class="row justify-content-center">
+            <mat-form-field class="col-sm-10">
               <mat-label>Ára</mat-label>
               <input type="number" matInput placeholder="2500" formControlName="etel_ara" value="">
             </mat-form-field>
           </div>
           <div class="row">
-            <button class="button" type="submit">Mentés</button>
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-secondary btn-sm" [disabled]="etel_etlap.invalid">Mentés</button>
+            </div>
           </div>
         </form>
       </div>
@@ -26,22 +28,24 @@
   <div class="col-md-6" data-aos="slide-up">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Ital hozzáadása</h5>
+        <h5 class="card-title text-center">Ital hozzáadása</h5>
         <form class="example-form" [formGroup]="ital_etlap" (ngSubmit)="ital_mentes()">
-          <div class="row">
-            <mat-form-field class="example-full-width">
+          <div class="row justify-content-center">
+            <mat-form-field class=" col-sm-10">
               <mat-label>Ital neve</mat-label>
-              <input matInput placeholder="Pl. Pizza" formControlName="ital_neve" value="">
+              <input matInput placeholder="Pl. Kóla 1,5l" formControlName="ital_neve" value="">
             </mat-form-field>
           </div>
-          <div class="row">
-            <mat-form-field class="example-full-width">
+          <div class="row justify-content-center">
+            <mat-form-field class="col-sm-10">
               <mat-label>Ára</mat-label>
               <input type="number" matInput placeholder="2500" formControlName="ital_ara" value="">
             </mat-form-field>
           </div>
           <div class="row">
-            <button type="submit">Mentés</button>
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-secondary btn-sm" [disabled]="ital_etlap.invalid">Mentés</button>
+            </div>
           </div>
         </form>
       </div>
@@ -50,30 +54,31 @@
 </div>
 <div class="row" id="Menu">
   <div class="col">
-    <h2 class="text-center" >Étlap</h2>
+    <h1 class="text-center p-1" >Étlap</h1>
   </div>
 </div>
 <div class="row bg-light m-3 p-4">
   <div class="col-md-6" data-aos="slide-up">
     <div class="card view zoom">
       <div class="card-body">
-        <h5 class="card-title">Ételek</h5>
+        <hr class="mt-2 mb-3"/>
+        <h5 class="card-title text-center">Ételek</h5>
+        <hr class="mt-2 mb-3"/>
         <ul class="list-group list-group-flush">
           <ng-container *ngFor="let etlap of adatok; let i = index">
             <li class="list-group-item" *ngIf="etlap.etlap_tipus == 'ETEL'">
-              <div class="row">
-                <div class="col-md-4">
+              <div class="row align-items-center h-100">
+                <div class="col-md-4 text-center">
                   {{etlap.etlap_neve}}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                   Ára: <span>{{etlap.etlap_ara}}</span> Ft
                 </div>
                 <div class="col-md-4">
-                  <button mat-icon-button color="primary"><mat-icon>border_color</mat-icon></button>
-                  <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button color="primary" (click)="modosit(etlap,'modositas')"><mat-icon>border_color</mat-icon></button>
+                  <button mat-icon-button color="warn" (click)="modosit(etlap, 'torles')"><mat-icon>delete</mat-icon></button>
                 </div>
               </div>
-
             </li>
           </ng-container>
         </ul>
@@ -83,23 +88,24 @@
   <div class="col-md-6" data-aos="slide-up">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Italok</h5>
+        <hr class="mt-2 mb-3"/>
+        <h5 class="card-title text-center">Italok</h5>
+        <hr class="mt-2 mb-3"/>
         <ul class="list-group list-group-flush">
           <ng-container *ngFor="let etlap of adatok; let i = index">
             <li class="list-group-item" *ngIf="etlap.etlap_tipus == 'ITAL'">
-              <div class="row">
-                <div class="col-md-4">
+              <div class="row align-items-center h-100">
+                <div class="col-md-4 text-center">
                   {{etlap.etlap_neve}}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                   Ára: <span>{{etlap.etlap_ara}}</span> Ft
                 </div>
                 <div class="col-md-4">
-                  <button mat-icon-button color="primary"><mat-icon>border_color</mat-icon></button>
-                  <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button color="primary" (click)="modosit(etlap,'modositas')"><mat-icon>border_color</mat-icon></button>
+                  <button mat-icon-button color="warn" (click)="modosit(etlap, 'torles')"><mat-icon>delete</mat-icon></button>
                 </div>
               </div>
-
             </li>
           </ng-container>
         </ul>

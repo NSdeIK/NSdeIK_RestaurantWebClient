@@ -1,7 +1,7 @@
 <div class="card my-5">
   <button mat-fab color="primary" class="uj_szemely" (click)="dialog_add('Hozzáadás')"><mat-icon>person_add</mat-icon></button>
     <div class="card-body">
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered table-striped rounded">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -16,8 +16,8 @@
             <td class="nev">{{ szemely.szemely_nev }}</td>
             <td class="poszt">{{ szemely.szemely_poszt }}</td>
             <td>
-              <a (click)="dialog('Szerkesztés',szemely)"><button mat-fab color="primary"><mat-icon>border_color</mat-icon></button></a> |
-              <a (click)="dialog('Törlés', szemely)"><button mat-fab color="warn"><mat-icon>delete</mat-icon></button></a>
+              <button mat-icon-button color="primary" (click)="dialog('Szerkesztés',szemely)"><mat-icon>border_color</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="dialog('Törlés', szemely)"><mat-icon>delete</mat-icon></button>
             </td>
           </tr>
         </tbody>

@@ -1,66 +1,70 @@
-<mat-grid-list cols="1" rowHeight="2:1" *ngIf="asztal.statusz == 'szabad'; else foglaltAsztal">
-  <mat-grid-tile>
-  <mat-stepper orientation="vertical">
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Hány fő érkezett erre az asztalra?</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Fő darabszáma</mat-label>
-          <input type="number" matInput placeholder="Pl. 5" formControlName="firstCtrl" min="1" [max]="asztal.maxfo" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext class="gomb">Következő</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Ki kezeli az asztalt?</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Pincér neve</mat-label>
-          <mat-select (valueChange)="changeValue($event)">
-            <mat-option *ngFor="let szemely of szemelyek" [value]="szemely">
-              {{szemely.szemely_nev}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext class="gomb">Következő</button>
-          <button mat-button matStepperPrevious class="vissza">Vissza</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Asztal foglalás</ng-template>
-      <p>Asztal információk</p>
-      <ul>
-        <li>
-          Asztal neve: {{asztal.asztal_nev}}
-        </li>
-        <li>
-          Kezeli: <span *ngIf="kivalasztott">{{kivalasztott.szemely_nev}}</span>
-        </li>
-        <li>
-          Személyek száma: {{firstFormGroup.value.firstCtrl}}/{{asztal.maxfo}}
-        </li>
-      </ul>
-      <div>
-        <button mat-button class="gomb" (click)="asztalfoglalas()">Lefoglalás</button>
-        <button mat-button matStepperPrevious class="vissza">Vissza</button>
-      </div>
-    </mat-step>
-  </mat-stepper>
-  </mat-grid-tile>
-</mat-grid-list>
+<ng-container *ngIf="asztal!= null">
+    <mat-grid-list cols="1" rowHeight="30em" >
+      <mat-grid-tile *ngIf="asztal.statusz == 'szabad'; else foglaltAsztal">
+        <mat-stepper orientation="vertical" linear>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Hány fő érkezett erre az asztalra?</ng-template>
+              <mat-form-field appearance="fill">
+                <mat-label>Fő darabszáma</mat-label>
+                <input type="number" matInput placeholder="Pl. 5" formControlName="firstCtrl" min="1" [max]="asztal.maxfo" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext class="gomb">Következő</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Ki kezeli az asztalt?</ng-template>
+              <mat-form-field appearance="fill">
+                <mat-label>Pincér neve</mat-label>
+                <mat-select (valueChange)="changeValue($event)">
+                  <mat-option *ngFor="let szemely of szemelyek" [value]="szemely">
+                    {{szemely.szemely_nev}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext class="gomb">Következő</button>
+                <button mat-button matStepperPrevious class="vissza">Vissza</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Asztal foglalás</ng-template>
+            <p>Asztal információk</p>
+            <ul>
+              <li>
+                Asztal neve: {{asztal.asztal_nev}}
+              </li>
+              <li>
+                Kezeli: <span *ngIf="kivalasztott">{{kivalasztott.szemely_nev}}</span>
+              </li>
+              <li>
+                Személyek száma: {{firstFormGroup.value.firstCtrl}}/{{asztal.maxfo}}
+              </li>
+            </ul>
+            <div>
+              <button mat-button class="gomb" (click)="asztalfoglalas()">Lefoglalás</button>
+              <button mat-button matStepperPrevious class="vissza">Vissza</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </mat-grid-tile>
+    </mat-grid-list>
 <ng-template #foglaltAsztal >
-  <div class="row center justify-content-md-center">
+  <div class="row center justify-content-md-center m-3">
     <div class="col-sm-4 col-xl-3">
       <div class="card">
         <div class="card-heading p-4">
           <div>
             <h5 class="font-16 text-center">Kezeli</h5>
           </div>
-          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.kezelo_szemely_nev}}</h3>
+          <hr class="mt-3 mb-3"/>
+          <div *ngIf="foglaltAsztalAdatok != null">
+            <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.kezelo_szemely_nev}}</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -70,7 +74,10 @@
           <div>
             <h5 class="font-16 text-center">Asztal neve</h5>
           </div>
-          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.asztal_nev}}</h3>
+          <hr class="mt-3 mb-3"/>
+          <div *ngIf="foglaltAsztalAdatok != null">
+            <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.asztal_nev}}</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -80,12 +87,16 @@
           <div>
             <h5 class="font-16 text-center">Vendégek száma</h5>
           </div>
-          <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.vendegek_szama}}/{{foglaltAsztalAdatok.maxfo}}</h3>
+          <hr class="mt-3 mb-3"/>
+          <div *ngIf="foglaltAsztalAdatok != null">
+            <h3 class="mt-4 text-center">{{foglaltAsztalAdatok.vendegek_szama}}/{{foglaltAsztalAdatok.maxfo}}</h3>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row justify-content-md-center">
+  <hr class="mt-3 mb-3"/>
+  <div class="row justify-content-md-center m-4">
     <div class="col-xl-3">
       <div class="card m-b-30">
         <div class="card-body">
@@ -108,8 +119,8 @@
             </tr>
             </thead>
             <tbody>
-              <tr class="text-center" *ngFor="let varolista of megrendeles_varolista">
-                <th scope="row">1</th>
+              <tr class="text-center" *ngFor="let varolista of megrendeles_varolista;let i = index">
+                <th scope="row">{{i+1}}</th>
                 <td>{{varolista.megrendeles_neve}}</td>
                 <td>{{varolista.megrendeles_db}}</td>
                 <td>{{varolista.megrendeles_bekeresi_ido}}</td>
@@ -127,12 +138,13 @@
             <button class="btn btn-success btn-lg" (click)="dialog_add('hozzaad')">Megrendelés hozzáadása</button>
           </div>
           <div class="col m-3 text-center">
-            <button class="btn btn-primary btn-lg">Véglegesítés</button>
+            <button class="btn btn-primary btn-lg" (click)="dialog_add('veglegesites')">Véglegesítés</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <hr class="mt-3 mb-3"/>
   <div class="row justify-content-md-center">
     <div class="col-xl-8">
       <div class="card m-b-30">
@@ -143,16 +155,14 @@
             <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Megrendelés neve</th>
-              <th scope="col">Szakács készítette</th>
               <th scope="col">Darab</th>
               <th scope="col">Ára</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="text-center" *ngFor="let megrendeles of megrendelesek">
-              <th scope="row">1</th>
+            <tr class="text-center" *ngFor="let megrendeles of megrendelesek;let i = index">
+              <th scope="row">{{i+1}}</th>
               <td>{{megrendeles.megrendeles_neve}}</td>
-              <td>{{megrendeles.szakacs}}</td>
               <td>{{megrendeles.megrendeles_db}}</td>
               <td>{{megrendeles.megrendeles_ara}} Ft</td>
             </tr>
@@ -163,3 +173,4 @@
     </div>
   </div>
 </ng-template>
+</ng-container>

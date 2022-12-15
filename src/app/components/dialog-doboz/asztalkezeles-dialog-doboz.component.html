@@ -1,17 +1,17 @@
-<h2 mat-dialog-title><strong>Megrendelés hozzáadása</strong></h2>
 <mat-dialog-content class="mat-typography" *ngIf="muveletTipus == 'hozzaad'">
-  <mat-stepper [linear]=true #stepper>
+  <h3 class="m-3"><strong>Megrendelés hozzáadása</strong></h3>
+  <mat-stepper [linear]="true" orientation="vertical">
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" class="d-flex justify-content-center">
+      <form [formGroup]="firstFormGroup" class="d-flex m-3">
         <ng-template matStepLabel>Típusa:</ng-template>
         <div class="col-md-8">
-        <div class="row text-center">
-          <mat-radio-group aria-label="Válassz ki a típusát!" formControlName="firstCtrl">
+        <div class="row">
+          <mat-radio-group aria-label="Válassz ki a típusát!" formControlName="firstCtrl" required>
             <mat-radio-button value="1" (change)="kivalasztottTipus($event)">Kaja</mat-radio-button>
             <mat-radio-button value="2" (change)="kivalasztottTipus($event)">Ital</mat-radio-button>
           </mat-radio-group>
         </div>
-        <div class="row">
+        <div class="row-md-4">
           <button mat-button matStepperNext (click)="etlapTipus()">Következő</button>
         </div>
         </div>
@@ -19,12 +19,12 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Válassz ki a megrendelés nevét és add meg a darabszámát!">
       <form [formGroup]="secondFormGroup">
-        <div class="col-md-4">
+        <div class="col-md-4 m-3">
           <div class="row">
             <mat-form-field appearance="fill">
               <mat-label>Megrendelés neve</mat-label>
-                <mat-select [formControlName]="'etlap'">
-                  <mat-option *ngFor="let melyik of kivalasztottAdatok" [value]="melyik" >
+                <mat-select [formControlName]="'etlap'" required>
+                  <mat-option *ngFor="let melyik of kivalasztottAdatok" [value]="melyik">
                     {{melyik.etlap_neve}}
                   </mat-option>
                 </mat-select>
@@ -33,7 +33,7 @@
           <div class="row">
             <mat-form-field appearance="fill">
               <mat-label>Hány darab?</mat-label>
-              <input placeholder="Darabszáma" matInput formControlName="etlapDarab" type="number" min="1" max="99">
+              <input placeholder="Darabszáma" matInput formControlName="etlapDarab" type="number" min="1" max="99" required>
             </mat-form-field>
           </div>
         <div>
@@ -45,7 +45,7 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Ellenőrzés</ng-template>
-      <div>
+      <div class="m-3">
         <div class="row">
           {{etlap_neve}}
         </div>
@@ -57,4 +57,14 @@
       </div>
     </mat-step>
   </mat-stepper>
+</mat-dialog-content>
+<mat-dialog-content class="mat-typography" *ngIf="muveletTipus == 'veglegesites'">
+  <h2 class="text-center"><strong>Véglegesítés</strong></h2>
+  <div class="row justify-content-center">
+    <p class="text-center">Teljesítette <strong>{{osszeg}}</strong> Ft összeget?</p>
+  </div>
+  <div mat-dialog-actions class="justify-content-center">
+    <button mat-raised-button color="primary" (click)="frissites()">Igen</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Nem</button>
+  </div>
 </mat-dialog-content>
